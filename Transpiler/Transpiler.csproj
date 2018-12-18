@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\CppPlugin\CppPlugin.csproj" />
       <ProjectReference Include="..\JavaPlugin\JavaPlugin.csproj" />
     </ItemGroup>
 

@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transpiler", "Transpiler\Tr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TranspilerCore", "TranspilerCore\TranspilerCore.csproj", "{97373DCA-9279-4259-8E8F-E65FDDB999F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{3DA68F80-6EB4-49EE-8C31-89445B7465E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{3DA68F80-6EB4-49EE-8C31-89445B7465E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CppPlugin", "CppPlugin\CppPlugin.csproj", "{1616E67E-6732-4355-B7C5-B56C301951DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{3DA68F80-6EB4-49EE-8C31-89445B7465E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DA68F80-6EB4-49EE-8C31-89445B7465E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DA68F80-6EB4-49EE-8C31-89445B7465E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1616E67E-6732-4355-B7C5-B56C301951DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1616E67E-6732-4355-B7C5-B56C301951DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1616E67E-6732-4355-B7C5-B56C301951DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1616E67E-6732-4355-B7C5-B56C301951DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
