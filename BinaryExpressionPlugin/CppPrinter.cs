@@ -27,8 +27,9 @@ namespace BinaryExpressionPlugin
 			var op = PrintOperation(expr.Operation);
 			var right = expressionPrinter.Value.Apply(expr.Right) ??
 			            throw new ArgumentException($"Unable to print {expr.Right}");
+			// All operations are left-associative.
 			if (GetPrecedence(expr.Left) > GetPrecedence(expr.Operation)) left = "(" + left + ")";
-			if (GetPrecedence(expr.Right) > GetPrecedence(expr.Operation)) right = "(" + right + ")";
+			if (GetPrecedence(expr.Right) >= GetPrecedence(expr.Operation)) right = "(" + right + ")";
 			return left + " " + op + " " + right;
 		};
 
