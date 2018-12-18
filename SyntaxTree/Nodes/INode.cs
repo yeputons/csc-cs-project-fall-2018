@@ -6,4 +6,14 @@ namespace SyntaxTree.Nodes
     {
 		IReadOnlyList<INode> Children { get; }
     }
+
+	public abstract class EmptyNode : INode
+	{
+		public EmptyNode()
+		{
+			Children = new List<INode>();
+		}
+
+		public IReadOnlyList<INode> Children { get; }
+	}
 }
