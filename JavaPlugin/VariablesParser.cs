@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using com.github.javaparser.ast.expr;
 using com.github.javaparser.ast.stmt;
 using com.github.javaparser.resolution.types;
+using com.github.javaparser.symbolsolver.javaparsermodel.declarations;
 using Infrastructure;
 using SyntaxTree.Nodes;
 using SyntaxTree.Types;
@@ -18,6 +19,7 @@ namespace JavaPlugin
 	public interface IVariablesStorage
 	{
 		void Add(JavaAstVariableDeclarator key, IVariableDeclaration value);
+		bool TryGetValue(JavaAstVariableDeclarator key, out IVariableDeclaration value);
 		IVariableDeclaration this[JavaAstVariableDeclarator key] { get; }
 		ICollection<JavaAstVariableDeclarator> Keys { get; }
 		ICollection<IVariableDeclaration> Values { get; }
@@ -30,6 +32,11 @@ namespace JavaPlugin
 		public void Add(JavaAstVariableDeclarator key, IVariableDeclaration value)
 		{
 			variables.Add(key, value);;
+		}
+
+		public bool TryGetValue(JavaAstVariableDeclarator key, out IVariableDeclaration value)
+		{
+			return variables.TryGetValue(key, out value);
 		}
 
 		public IVariableDeclaration this[JavaAstVariableDeclarator key] => variables[key];
@@ -89,6 +96,26 @@ namespace JavaPlugin
 			var result = new VariableDeclaration(javaAst.getNameAsString(), type, initializer);
 			storage.Add(javaAst, result);
 			return result;
+		};
+	}
+
+	public class VariableReferenceParser : TaggedFunction<NodeParsingTag, NameExpr, IExpression>
+	{
+		private readonly IVariablesStorage storage;
+
+		public VariableReferenceParser(IVariablesStorage storage)
+		{
+			this.storage = storage;
+		}
+
+		public Func<NameExpr, IExpression> Apply => (nameExpr) =>
+		{
+			var resolved = nameExpr.resolve();
+			if (!(resolved is JavaParserSymbolDeclaration symbolDeclaration)) return null;
+			IVariableDeclaration variable;
+			if (!storage.TryGetValue((JavaAstVariableDeclarator) symbolDeclaration.getWrappedNode(), out variable)) return null;
+			if (!(variable is VariableDeclaration variableDeclaration)) return null;
+			return new VariableReference(variableDeclaration);
 		};
 	}
 }

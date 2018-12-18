@@ -5,6 +5,7 @@ using SyntaxTree.Types;
 
 namespace SyntaxTree.Nodes
 {
+	// Arrays are declared differently, hence a common interface is needed.
 	public interface IVariableDeclaration
 	{
 		string Name { get; }
@@ -30,4 +31,14 @@ namespace SyntaxTree.Nodes
 		public IReadOnlyList<INode> Children { get; }
 	}
 
+	public class VariableReference : EmptyNode, IExpression
+	{
+		public VariableReference(VariableDeclaration declaration)
+		{
+			Declaration = declaration;
+		}
+
+		public VariableDeclaration Declaration { get; }
+		public IType EvaluationType => Declaration.Type;
+	}
 }

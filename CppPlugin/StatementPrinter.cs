@@ -50,10 +50,10 @@ namespace CppPlugin
 		private readonly Lazy<TaggedFunction<PartialFunctionCombined<TypePrintingTag>, IType, string>>
 			typePrinter;
 
-		private readonly Lazy<TaggedFunction<PartialFunctionCombined<StatementPrintingTag>, IExpression, string>>
+		private readonly Lazy<TaggedFunction<PartialFunctionCombined<ExpressionPrintingTag>, IExpression, string>>
 			expressionPrinter;
 
-		public VariableDeclarationPrinter(IndentedTextWriter writer, Lazy<TaggedFunction<PartialFunctionCombined<TypePrintingTag>, IType, string>> typePrinter, Lazy<TaggedFunction<PartialFunctionCombined<StatementPrintingTag>, IExpression, string>> expressionPrinter)
+		public VariableDeclarationPrinter(IndentedTextWriter writer, Lazy<TaggedFunction<PartialFunctionCombined<TypePrintingTag>, IType, string>> typePrinter, Lazy<TaggedFunction<PartialFunctionCombined<ExpressionPrintingTag>, IExpression, string>> expressionPrinter)
 		{
 			this.writer = writer;
 			this.typePrinter = typePrinter;

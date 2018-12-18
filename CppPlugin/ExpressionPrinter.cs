@@ -12,11 +12,11 @@ namespace CppPlugin
 	{
 	}
 
-	class LiteralsPrinter
+	class ExpressionPrinter
 	{
-		public static readonly TaggedFunction<StatementPrintingTag, Int32Constant, string> PrintInt32Constant = new TaggedFuncWrapper<StatementPrintingTag, Int32Constant, string>(c => c.Value.ToString());
-		public static readonly TaggedFunction<StatementPrintingTag, Int64Constant, string> PrintInt64Constant = new TaggedFuncWrapper<StatementPrintingTag, Int64Constant, string>(c => c.Value.ToString() + "LL");
-		public static readonly TaggedFunction<StatementPrintingTag, CharConstant, string> PrintCharConstant = new TaggedFuncWrapper<StatementPrintingTag, CharConstant, string>(c =>
+		public static readonly TaggedFunction<ExpressionPrintingTag, Int32Constant, string> PrintInt32Constant = new TaggedFuncWrapper<ExpressionPrintingTag, Int32Constant, string>(c => c.Value.ToString());
+		public static readonly TaggedFunction<ExpressionPrintingTag, Int64Constant, string> PrintInt64Constant = new TaggedFuncWrapper<ExpressionPrintingTag, Int64Constant, string>(c => c.Value.ToString() + "LL");
+		public static readonly TaggedFunction<ExpressionPrintingTag, CharConstant, string> PrintCharConstant = new TaggedFuncWrapper<ExpressionPrintingTag, CharConstant, string>(c =>
 		{
 			switch (c.Value)
 			{
@@ -26,6 +26,8 @@ namespace CppPlugin
 			}
 		});
 
-		public static readonly TaggedFunction<StatementPrintingTag, BoolConstant, string> PrintBoolConstant = new TaggedFuncWrapper<StatementPrintingTag, BoolConstant, string>(c => c.Value ? "true" : "false");
+		public static readonly TaggedFunction<ExpressionPrintingTag, BoolConstant, string> PrintBoolConstant = new TaggedFuncWrapper<ExpressionPrintingTag, BoolConstant, string>(c => c.Value ? "true" : "false");
+
+		public static readonly TaggedFunction<ExpressionPrintingTag, VariableReference, string> PrintVariableReference = new TaggedFuncWrapper<ExpressionPrintingTag, VariableReference, string>(r => r.Declaration.Name);
 	}
 }
