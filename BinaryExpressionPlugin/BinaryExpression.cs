@@ -21,18 +21,18 @@ namespace BinaryExpressionPlugin
 
 		public enum OperationType
 	    {
-			PLUS, MINUS, MULTIPLY, DIVIDE,
-			EQ
+			Plus, Minus, Multiply, Divide,
+			Eq
 	    }
 
 	    private static IType GetType(IType left, OperationType operation, IType right)
 	    {
 		    switch (operation)
 		    {
-			    case OperationType.PLUS:
-			    case OperationType.MINUS:
-			    case OperationType.MULTIPLY:
-			    case OperationType.DIVIDE:
+			    case OperationType.Plus:
+			    case OperationType.Minus:
+			    case OperationType.Multiply:
+			    case OperationType.Divide:
 				    if (left == SInt32.Instance && right == SInt32.Instance)
 					    return SInt32.Instance;
 				    else if (left == SInt32.Instance && right == SInt64.Instance)
@@ -42,7 +42,7 @@ namespace BinaryExpressionPlugin
 				    else if (left == SInt64.Instance && right == SInt64.Instance)
 					    return SInt64.Instance;
 				    break;
-			    case OperationType.EQ:
+			    case OperationType.Eq:
 				    if (left == right)
 					    return SBoolean.Instance;
 				    else if (left == SInt32.Instance && right == SInt64.Instance)
