@@ -9,6 +9,8 @@ using com.github.javaparser.ast.expr;
 using com.github.javaparser.ast.stmt;
 using com.github.javaparser.ast.type;
 using com.github.javaparser.resolution.types;
+using com.github.javaparser.symbolsolver;
+using com.github.javaparser.symbolsolver.resolution.typesolvers;
 using com.sun.org.apache.bcel.@internal.generic;
 using ikvm.extensions;
 using Infrastructure;
@@ -30,7 +32,9 @@ namespace JavaPlugin
 	{
 		public Program ParseFromString(string sourceCode)
 		{
+			var symbolSolver = new JavaSymbolSolver(new ReflectionTypeSolver());
 			CompilationUnit x = JavaParser.parse(new ByteArrayInputStream(sourceCode.getBytes(StandardCharsets.UTF_8)));
+			symbolSolver.inject(x);
 			if (x.getTypes().size() != 1) throw new ArgumentException("Exactly one top-level type is expected");
 
 			Node rootClassNode = x.getTypes().get(0);
@@ -40,19 +44,19 @@ namespace JavaPlugin
 			}
 
 			KernelBase kernel = new StandardKernel();
+			kernel.Bind<IVariablesStorage>().To<VariablesStorage>();
 			PartialFunctionCombiningMissingBindingResolver<TypeParsingTag>.LoadAllTaggedFunctionsFrom(GetType().Assembly, kernel);
 			PartialFunctionCombiningMissingBindingResolver<TypeParsingTag>.AddToKernel(kernel);
 			PartialFunctionCombiningMissingBindingResolver<NodeParsingTag>.LoadAllTaggedFunctionsFrom(GetType().Assembly, kernel);
 			PartialFunctionCombiningMissingBindingResolver<NodeParsingTag>.AddToKernel(kernel);
 
-			var parseStatement =
-				kernel.Get<TaggedFunction<PartialFunctionCombined<NodeParsingTag>, Statement, IStatement>>();
+			var parseStatement = kernel.Get<TaggedFunction<PartialFunctionCombined<NodeParsingTag>, Statement, IStatement>>();
 
 			INode mainStatement = null;
 			foreach (MethodDeclaration method in rootClass.getMethods().toArray())
 			{
 				if (!IsMethodMain(method)) throw new ArgumentException("Expected only main() method");
-				mainStatement = parseStatement.Apply((Statement) method.getBody().get());
+				mainStatement = parseStatement.Apply((Statement)method.getBody().get());
 				if (mainStatement == null) throw new ArgumentException($"Unable to parse main() method statement: {method.getBody().get()}");
 			}
 			if (mainStatement == null) throw new ArgumentException("main() not found");
