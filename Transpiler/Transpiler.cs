@@ -13,7 +13,7 @@ namespace Transpiler
 	        Type t = typeof(BinaryExpressionPlugin.BinaryExpression);  // Load assembly.
 
 	        Program p = new JavaProgramParser().ParseFromString(File.ReadAllText("TestInput.java"));
-	        System.Console.Write(new CppPrinter().PrintToString(p));
+	        Console.Write(new CppPrinter().PrintToString(p));
         }
     }
 }

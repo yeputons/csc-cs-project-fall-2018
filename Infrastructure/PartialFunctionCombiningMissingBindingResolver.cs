@@ -10,8 +10,6 @@ using Ninject.Infrastructure;
 using Ninject.Planning;
 using Ninject.Planning.Bindings;
 using Ninject.Planning.Bindings.Resolvers;
-using Ninject.Planning.Directives;
-using Ninject.Planning.Targets;
 using TranspilerInfrastructure;
 
 namespace Infrastructure
@@ -58,14 +56,12 @@ namespace Infrastructure
 		public IEnumerable<IBinding> Resolve(Multimap<Type, IBinding> bindings, IRequest request)
 		{
 			Type service = request.Service;
-			Type serviceInput, serviceOutput;
-			if (!service.IsTaggedFunction<PartialFunctionCombined<Tag>>(out serviceInput, out serviceOutput)) return Enumerable.Empty<IBinding>();
+			if (!service.IsTaggedFunction<PartialFunctionCombined<Tag>>(out var serviceInput, out var serviceOutput)) return Enumerable.Empty<IBinding>();
 
 			var partialFunctions = new List<IBinding>();
 			foreach (var key in bindings.Keys)
 			{
-				Type curInput, curOutput;
-				if (!key.IsTaggedFunction<Tag>(out curInput, out curOutput)) continue;
+				if (!key.IsTaggedFunction<Tag>(out var curInput, out var curOutput)) continue;
 				if (!serviceOutput.IsAssignableFrom(curOutput)) continue;
 				if (curInput.IsAssignableFrom(serviceInput) || serviceInput.IsAssignableFrom(curInput))
 				{
@@ -87,8 +83,7 @@ namespace Infrastructure
 					ProviderCallback = context =>
 						new PartialFunctionCombiningProvider(service, partialFunctions.Select(binding =>
 						{
-							Type bindingInput, bindingOutput;
-							if (!binding.Service.IsTaggedFunction<Tag>(out bindingInput, out bindingOutput))
+							if (!binding.Service.IsTaggedFunction<Tag>(out var bindingInput, out var bindingOutput))
 								throw new ArgumentException($"Expected TaggedFunction<{typeof(Tag)}, T1, TResult> as a partial function");
 							// TODO: probably calling binding.ProviderCallback() is not the best idea because it ignores Ninject's planning.
 							// May result in weird behavior if there are unresolved dependencies (e.g. creating object of a wrong type).

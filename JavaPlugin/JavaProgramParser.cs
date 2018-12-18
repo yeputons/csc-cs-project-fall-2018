@@ -1,30 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using com.github.javaparser;
 using com.github.javaparser.ast;
 using com.github.javaparser.ast.body;
-using com.github.javaparser.ast.expr;
 using com.github.javaparser.ast.stmt;
-using com.github.javaparser.ast.type;
-using com.github.javaparser.resolution.types;
 using com.github.javaparser.symbolsolver;
 using com.github.javaparser.symbolsolver.resolution.typesolvers;
-using com.sun.org.apache.bcel.@internal.generic;
 using ikvm.extensions;
 using Infrastructure;
 using java.io;
 using java.nio.charset;
-using java.util;
 using Ninject;
-using Ninject.Planning.Bindings.Resolvers;
 using SyntaxTree.Nodes;
-using SyntaxTree.Types;
 using TranspilerCore;
 using TranspilerInfrastructure;
-using Console = System.Console;
-using Type = com.github.javaparser.ast.type.Type;
 
 namespace JavaPlugin
 {

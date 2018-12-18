@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SyntaxTree.Nodes;
+﻿using SyntaxTree.Nodes;
 
 namespace TranspilerCore
 {

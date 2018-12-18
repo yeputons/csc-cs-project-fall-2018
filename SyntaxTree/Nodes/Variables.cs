@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using SyntaxTree.Types;
 
 namespace SyntaxTree.Nodes

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using com.github.javaparser.ast.expr;
 using Infrastructure;
 using JavaPlugin;
@@ -31,11 +27,11 @@ namespace BinaryExpressionPlugin
 
 		private static BinaryExpression.OperationType getOperation(BinaryExpr.Operator op)
 		{
-			if (op == BinaryExpr.Operator.PLUS) return BinaryExpression.OperationType.PLUS;
-			if (op == BinaryExpr.Operator.MINUS) return BinaryExpression.OperationType.MINUS;
-			if (op == BinaryExpr.Operator.MULTIPLY) return BinaryExpression.OperationType.MULTIPLY;
-			if (op == BinaryExpr.Operator.DIVIDE) return BinaryExpression.OperationType.DIVIDE;
-			if (op == BinaryExpr.Operator.EQUALS) return BinaryExpression.OperationType.EQ;
+			if (op == BinaryExpr.Operator.PLUS) return BinaryExpression.OperationType.Plus;
+			if (op == BinaryExpr.Operator.MINUS) return BinaryExpression.OperationType.Minus;
+			if (op == BinaryExpr.Operator.MULTIPLY) return BinaryExpression.OperationType.Multiply;
+			if (op == BinaryExpr.Operator.DIVIDE) return BinaryExpression.OperationType.Divide;
+			if (op == BinaryExpr.Operator.EQUALS) return BinaryExpression.OperationType.Eq;
 			throw new ArgumentException($"Unsupported binary operation: {op}");
 		}
 	}

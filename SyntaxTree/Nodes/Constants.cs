@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SyntaxTree.Types;
+﻿using SyntaxTree.Types;
 
 namespace SyntaxTree.Nodes
 {

@@ -1,5 +1,3 @@
-using System.ComponentModel;
-
 namespace SyntaxTree.Types
 {
     public class SInt32 : IType

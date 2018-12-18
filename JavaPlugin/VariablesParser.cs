@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using com.github.javaparser.ast.expr;
 using com.github.javaparser.ast.stmt;
 using com.github.javaparser.resolution.types;
@@ -31,7 +28,7 @@ namespace JavaPlugin
 
 		public void Add(JavaAstVariableDeclarator key, IVariableDeclaration value)
 		{
-			variables.Add(key, value);;
+			variables.Add(key, value);
 		}
 
 		public bool TryGetValue(JavaAstVariableDeclarator key, out IVariableDeclaration value)
@@ -41,8 +38,8 @@ namespace JavaPlugin
 
 		public IVariableDeclaration this[JavaAstVariableDeclarator key] => variables[key];
 
-		public ICollection<JavaAstVariableDeclarator> Keys { get => variables.Keys; }
-		public ICollection<IVariableDeclaration> Values { get => variables.Values; }
+		public ICollection<JavaAstVariableDeclarator> Keys => variables.Keys;
+		public ICollection<IVariableDeclaration> Values => variables.Values;
 	}
 
 	public class VariablesDeclarationParser : TaggedFunction<NodeParsingTag, ExpressionStmt, IStatement>
@@ -112,8 +109,7 @@ namespace JavaPlugin
 		{
 			var resolved = nameExpr.resolve();
 			if (!(resolved is JavaParserSymbolDeclaration symbolDeclaration)) return null;
-			IVariableDeclaration variable;
-			if (!storage.TryGetValue((JavaAstVariableDeclarator) symbolDeclaration.getWrappedNode(), out variable)) return null;
+			if (!storage.TryGetValue((JavaAstVariableDeclarator) symbolDeclaration.getWrappedNode(), out var variable)) return null;
 			if (!(variable is VariableDeclaration variableDeclaration)) return null;
 			return new VariableReference(variableDeclaration);
 		};

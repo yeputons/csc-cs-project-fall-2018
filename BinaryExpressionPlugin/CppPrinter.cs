@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CppPlugin;
 using Infrastructure;
 using SyntaxTree.Nodes;
@@ -37,11 +33,11 @@ namespace BinaryExpressionPlugin
 		{
 			switch (operation)
 			{
-				case BinaryExpression.OperationType.PLUS: return "+";
-				case BinaryExpression.OperationType.MINUS: return "-";
-				case BinaryExpression.OperationType.MULTIPLY: return "*";
-				case BinaryExpression.OperationType.DIVIDE: return "/";
-				case BinaryExpression.OperationType.EQ: return "==";
+				case BinaryExpression.OperationType.Plus: return "+";
+				case BinaryExpression.OperationType.Minus: return "-";
+				case BinaryExpression.OperationType.Multiply: return "*";
+				case BinaryExpression.OperationType.Divide: return "/";
+				case BinaryExpression.OperationType.Eq: return "==";
 				default: throw new ArgumentException($"Unknown operation: {operation}");
 			}
 		}
@@ -60,11 +56,11 @@ namespace BinaryExpressionPlugin
 		{
 			switch (operation)
 			{
-				case BinaryExpression.OperationType.MULTIPLY:
-				case BinaryExpression.OperationType.DIVIDE: return 1;
-				case BinaryExpression.OperationType.PLUS:
-				case BinaryExpression.OperationType.MINUS: return 2;
-				case BinaryExpression.OperationType.EQ: return 3;
+				case BinaryExpression.OperationType.Multiply:
+				case BinaryExpression.OperationType.Divide: return 1;
+				case BinaryExpression.OperationType.Plus:
+				case BinaryExpression.OperationType.Minus: return 2;
+				case BinaryExpression.OperationType.Eq: return 3;
 				default: throw new ArgumentException($"Unknown operation: {operation}");
 			}
 		}

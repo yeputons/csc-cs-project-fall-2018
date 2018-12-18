@@ -9,7 +9,7 @@ namespace SyntaxTree.Nodes
 
 	public abstract class EmptyNode : INode
 	{
-		public EmptyNode()
+		protected EmptyNode()
 		{
 			Children = new List<INode>();
 		}

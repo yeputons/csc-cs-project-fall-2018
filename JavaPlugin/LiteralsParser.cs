@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using com.github.javaparser.ast.expr;
+﻿using com.github.javaparser.ast.expr;
 using SyntaxTree.Nodes;
-using SyntaxTree.Types;
 using TranspilerInfrastructure;
 
 namespace JavaPlugin
