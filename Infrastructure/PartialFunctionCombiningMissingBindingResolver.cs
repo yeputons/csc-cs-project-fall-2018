@@ -7,8 +7,11 @@ using Ninject;
 using Ninject.Activation;
 using Ninject.Components;
 using Ninject.Infrastructure;
+using Ninject.Planning;
 using Ninject.Planning.Bindings;
 using Ninject.Planning.Bindings.Resolvers;
+using Ninject.Planning.Directives;
+using Ninject.Planning.Targets;
 using TranspilerInfrastructure;
 
 namespace Infrastructure
@@ -62,10 +65,16 @@ namespace Infrastructure
 				}
 			}
 
+			if (partialFunctions.Count == 0)
+			{
+				throw new ArgumentException($"No partial functions found for partial functions tagged {typeof(Tag)} from {serviceInput} to {serviceOutput}");
+			}
+
 			return new IBinding[]
 			{
 				new Binding(service)
 				{
+					Target = BindingTarget.Provider,
 					ScopeCallback = StandardScopeCallbacks.Singleton,
 					ProviderCallback = context =>
 						new PartialFunctionCombiningProvider(service, partialFunctions.Select(binding =>
@@ -73,6 +82,8 @@ namespace Infrastructure
 							Type bindingInput, bindingOutput;
 							if (!binding.Service.IsTaggedFunction<Tag>(out bindingInput, out bindingOutput))
 								throw new ArgumentException($"Expected TaggedFunction<{typeof(Tag)}, T1, TResult> as a partial function");
+							// TODO: probably calling binding.ProviderCallback() is not the best idea because it ignores Ninject's planning.
+							// May result in weird behavior if there are unresolved dependencies (e.g. creating object of a wrong type).
 							return new PartialFunctionProvider(bindingInput, bindingOutput, binding.ProviderCallback(context));
 						}).ToList())
 				}
@@ -124,8 +135,17 @@ namespace Infrastructure
 			public object Create(IContext context)
 			{
 				IReadOnlyList<PartialFunction> functions = partialFunctionsProviders.Select(provider =>
-					new PartialFunction(provider.InputType, provider.OutputType,
-						TaggedFunctionToDelegate(provider.Provider.Create(context)))).ToList();
+				{
+					// TODO: probably calling Provider.Create() is not the best idea because it ignores Ninject's planning.
+					// May result in weird behavior if there are unresolved dependencies (e.g. creating object of a wrong type).
+					// Here are some hacks to make it work.
+					IPlan oldPlan = context.Plan;
+					context.Plan = null;
+					var result = new PartialFunction(provider.InputType, provider.OutputType,
+						TaggedFunctionToDelegate(provider.Provider.Create(context)));
+					context.Plan = oldPlan;
+					return result;
+				}).ToList();
 				Func<object, object> resultFunc = o =>
 				{
 					foreach (var func in functions)
