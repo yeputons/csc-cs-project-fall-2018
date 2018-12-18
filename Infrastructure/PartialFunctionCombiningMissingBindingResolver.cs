@@ -148,16 +148,16 @@ namespace Infrastructure
 				}).ToList();
 				Func<object, object> resultFunc = o =>
 				{
+					object defaultValue = output.IsValueType ? Activator.CreateInstance(output) : null;
 					foreach (var func in functions)
 					{
 						if (func.InputType.IsInstanceOfType(o))
 						{
 							var result = func.Func.DynamicInvoke(o);
-							if (result != null) return result;
+							if (result != defaultValue) return result;
 						}
 					}
-
-					return null;
+					return defaultValue;
 				};
 				Type funcType = typeof(Func<,>).MakeGenericType(input, output);
 				Type resultType = typeof(TaggedFuncWrapper<,,>).MakeGenericType(typeof(PartialFunctionCombined<Tag>), input, output);
