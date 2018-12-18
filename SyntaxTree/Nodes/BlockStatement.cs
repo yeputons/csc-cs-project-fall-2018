@@ -12,11 +12,11 @@ namespace SyntaxTree.Nodes
 			if (statements == null || statements.Contains(null))
 				throw new ArgumentException(
 					$"BlockStatement expects non-null list of non-null statements, got {statements}");
-			this.data = statements;
+			Statements = statements;
 		}
 
-		private readonly IReadOnlyList<IStatement> data;
+		public IReadOnlyList<IStatement> Statements { get; }
 
-		public IReadOnlyList<INode> Children => data;
+		public IReadOnlyList<INode> Children => Statements;
 	}
 }
