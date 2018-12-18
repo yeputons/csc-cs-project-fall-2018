@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net461</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="IKVM" Version="8.1.5717" />
+      <PackageReference Include="Ninject.Extensions.Factory" Version="3.3.2" />
+      <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.6.0-preview.18571.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="javaparser.dll" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+      <ProjectReference Include="..\TranspilerCore\TranspilerCore.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="javaparser, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\javaparser.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>
