@@ -21,6 +21,14 @@ namespace Infrastructure
 
 	public class PartialFunctionCombiningMissingBindingResolver<Tag> : NinjectComponent, IMissingBindingResolver
 	{
+		public static void LoadAllTaggedFunctions(IKernel kernel)
+		{
+			foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+			{
+				LoadAllTaggedFunctionsFrom(assembly, kernel);
+			}
+		}
+
 		public static void LoadAllTaggedFunctionsFrom(Assembly assembly, IKernel kernel)
 		{
 			foreach (var type in assembly.GetTypes())
@@ -178,6 +186,5 @@ namespace Infrastructure
 
 			public Type Type { get; }
 		}
-
 	}
 }

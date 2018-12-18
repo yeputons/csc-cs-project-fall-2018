@@ -19,11 +19,11 @@ namespace CppPlugin
 			var sb = new StringBuilder();
 
 		    IKernel kernel = new StandardKernel();
-		    PartialFunctionCombiningMissingBindingResolver<TypePrintingTag>.LoadAllTaggedFunctionsFrom(GetType().Assembly, kernel);
+		    PartialFunctionCombiningMissingBindingResolver<TypePrintingTag>.LoadAllTaggedFunctions(kernel);
 		    PartialFunctionCombiningMissingBindingResolver<TypePrintingTag>.AddToKernel(kernel);
-		    PartialFunctionCombiningMissingBindingResolver<ExpressionPrintingTag>.LoadAllTaggedFunctionsFrom(GetType().Assembly, kernel);
+		    PartialFunctionCombiningMissingBindingResolver<ExpressionPrintingTag>.LoadAllTaggedFunctions(kernel);
 		    PartialFunctionCombiningMissingBindingResolver<ExpressionPrintingTag>.AddToKernel(kernel);
-			PartialFunctionCombiningMissingBindingResolver<StatementPrintingTag>.LoadAllTaggedFunctionsFrom(GetType().Assembly, kernel);
+			PartialFunctionCombiningMissingBindingResolver<StatementPrintingTag>.LoadAllTaggedFunctions(kernel);
 		    PartialFunctionCombiningMissingBindingResolver<StatementPrintingTag>.AddToKernel(kernel);
 
 			using (IndentedTextWriter writer = new IndentedTextWriter(new StringWriter(sb)))

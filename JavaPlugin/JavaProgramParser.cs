@@ -45,9 +45,9 @@ namespace JavaPlugin
 
 			KernelBase kernel = new StandardKernel();
 			kernel.Bind<IVariablesStorage>().To<VariablesStorage>().InSingletonScope();
-			PartialFunctionCombiningMissingBindingResolver<TypeParsingTag>.LoadAllTaggedFunctionsFrom(GetType().Assembly, kernel);
+			PartialFunctionCombiningMissingBindingResolver<TypeParsingTag>.LoadAllTaggedFunctions(kernel);
 			PartialFunctionCombiningMissingBindingResolver<TypeParsingTag>.AddToKernel(kernel);
-			PartialFunctionCombiningMissingBindingResolver<NodeParsingTag>.LoadAllTaggedFunctionsFrom(GetType().Assembly, kernel);
+			PartialFunctionCombiningMissingBindingResolver<NodeParsingTag>.LoadAllTaggedFunctions(kernel);
 			PartialFunctionCombiningMissingBindingResolver<NodeParsingTag>.AddToKernel(kernel);
 
 			var parseStatement = kernel.Get<TaggedFunction<PartialFunctionCombined<NodeParsingTag>, Statement, IStatement>>();
