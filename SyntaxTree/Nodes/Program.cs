@@ -6,11 +6,11 @@ namespace SyntaxTree.Nodes
 {
 	public class Program
 	{
-		public Program(INode mainStatement)
+		public Program(IStatement mainStatement)
 		{
 			MainStatement = mainStatement ?? throw new ArgumentException("Program expects a non-null mainStatement");
 		}
 
-		public INode MainStatement { get; }
+		public IStatement MainStatement { get; }
 	}
 }

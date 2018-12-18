@@ -52,7 +52,7 @@ namespace JavaPlugin
 
 			var parseStatement = kernel.Get<TaggedFunction<PartialFunctionCombined<NodeParsingTag>, Statement, IStatement>>();
 
-			INode mainStatement = null;
+			IStatement mainStatement = null;
 			foreach (MethodDeclaration method in rootClass.getMethods().toArray())
 			{
 				if (!IsMethodMain(method)) throw new ArgumentException("Expected only main() method");
