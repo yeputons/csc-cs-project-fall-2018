@@ -8,11 +8,11 @@ using TranspilerInfrastructure;
 
 namespace CppPlugin
 {
-	interface ExpressionPrintingTag
+	public interface ExpressionPrintingTag
 	{
 	}
 
-	class ExpressionPrinter
+	public class ExpressionPrinter
 	{
 		public static readonly TaggedFunction<ExpressionPrintingTag, Int32Constant, string> PrintInt32Constant = new TaggedFuncWrapper<ExpressionPrintingTag, Int32Constant, string>(c => c.Value.ToString());
 		public static readonly TaggedFunction<ExpressionPrintingTag, Int64Constant, string> PrintInt64Constant = new TaggedFuncWrapper<ExpressionPrintingTag, Int64Constant, string>(c => c.Value.ToString() + "LL");
